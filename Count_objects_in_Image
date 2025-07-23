@@ -1,0 +1,25 @@
+import cv2
+import matplotlib.pyplot as plt
+import cvlib as cv
+from cvlib.object_detection import draw_bbox
+
+# Read the image
+image = cv2.imread("cars.jpeg")
+
+# Convert image from BGR (OpenCV format) to RGB (for matplotlib)
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Detect common objects in the image
+box, label, count = cv.detect_common_objects(image_rgb)
+
+# Draw bounding boxes around detected objects
+output = draw_bbox(image_rgb, box, label, count)
+
+# Display the image using matplotlib
+plt.figure(figsize=(10, 6))
+plt.imshow(output)
+plt.axis('off')
+plt.show()
+
+# Print the number of cars detected
+print("Number of cars in this image are:", label.count('car'))
